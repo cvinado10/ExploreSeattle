@@ -16,7 +16,7 @@ Semi-responsive design to ensure usability on different screen sizes.
   
   
 Project Structure  
-sea_project/  
+ExploreSeattle/  
 ├── assets/  
 │   └── bootstrap.css  
 │   └── GitHubLogo.css  

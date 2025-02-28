@@ -80,16 +80,18 @@ seattle_crime = gpd.sjoin_nearest(crime, seattle, how = 'left', distance_col = '
 # Formatting
 # # - Convert NaT to NA for easier processing down the line
 seattle_crime = seattle_crime.replace({pd.NaT: None})
+# # - Rename column
+seattle_crime.rename(columns = {'Crime Against Category' : 'Offense Against Category'}, inplace = True)
 # - Capitalize text instead of bloack caps
-seattle_crime['Crime Against Category'] = seattle_crime['Crime Against Category'].str.capitalize()
+seattle_crime['Offense Against Category'] = seattle_crime['Offense Against Category'].str.capitalize()
 seattle_crime['Offense Parent Group'] = seattle_crime['Offense Parent Group'].str.capitalize()
 # Structural
 # -Drop the non crimes (currently none have locations, but to future proof)
-seattle_crime = seattle_crime[seattle_crime['Crime Against Category']!= 'Not_a_crime']
+seattle_crime = seattle_crime[seattle_crime['Offense Against Category']!= 'Not_a_crime']
 # # -Drop straggler columns
 seattle_crime.drop(columns = ['index_right', 'distance'], inplace = True)
 # -Sort
-seattle_crime.sort_values(by = 'Crime Against Category', inplace = True)
+seattle_crime.sort_values(by = 'Offense Against Category', inplace = True)
 
 
 # **DATA ANALYSIS**
@@ -233,7 +235,7 @@ def Count (seattle_crime, unit):
     unit_crime_counts = defaultdict(lambda: defaultdict(lambda: Counter()))
     # Populate the counts in sequentially
     for _, row in seattle_crime.iterrows():
-        event_type = row['Crime Against Category']
+        event_type = row['Offense Against Category']
         neighborhood = row['L_HOOD']
         units_list = row[f'{unit}s_list']
         for u in units_list:
@@ -316,7 +318,7 @@ results = {unit: Process(results[unit], unit, normalizing_columns, diff_columns)
 # Function to mass save for ease of data pull for display
 def Save(df, unit):
     # File paths
-    save_dir = '/static/Created/'
+    save_dir = 'static/Created/'
     crime_path = os.path.join(save_dir, f'{unit}_crime.csv')
     # Save to CSV
     df.to_csv(crime_path, index=False)
@@ -359,9 +361,9 @@ location_counts, category_counts, offense_counts = [], [], []
 oldest_records, newest_records, longest_records = [], [], []
 
 # Process Seattle-wide data
-location_counts.append(process_groupby(seattle_crime, ['Neighborhood'], ['Offense Parent Group', 'Crime Against Category', 'days_count'], 'Counts', 'Seattle'))
-category_counts.append(process_groupby(seattle_crime, ['Crime Against Category'], ['Neighborhood', 'Offense Parent Group', 'days_count'], 'Counts', 'Seattle'))
-offense_counts.append(process_groupby(seattle_crime, ['Crime Against Category', 'Offense Parent Group'], ['Neighborhood', 'days_count'], 'Counts', 'Seattle'))
+location_counts.append(process_groupby(seattle_crime, ['Neighborhood'], ['Offense Parent Group', 'Offense Against Category', 'days_count'], 'Counts', 'Seattle'))
+category_counts.append(process_groupby(seattle_crime, ['Offense Against Category'], ['Neighborhood', 'Offense Parent Group', 'days_count'], 'Counts', 'Seattle'))
+offense_counts.append(process_groupby(seattle_crime, ['Offense Against Category', 'Offense Parent Group'], ['Neighborhood', 'days_count'], 'Counts', 'Seattle'))
 oldest_records.append(process_extra_records(seattle_crime, 'Offense Start DateTime', True, 'Seattle'))
 newest_records.append(process_extra_records(seattle_crime, 'Offense Start DateTime', False, 'Seattle'))
 longest_records.append(process_extra_records(seattle_crime, 'days_count', False, 'Seattle'))
@@ -370,9 +372,9 @@ longest_records.append(process_extra_records(seattle_crime, 'days_count', False,
 for neighborhood in seattle_crime['Neighborhood'].unique():
     neighborhood_data = seattle_crime[seattle_crime['Neighborhood'] == neighborhood]
     
-    location_counts.append(process_groupby(neighborhood_data, ['Neighborhood'], ['Offense Parent Group', 'Crime Against Category', 'days_count'], 'Counts', neighborhood))
-    category_counts.append(process_groupby(neighborhood_data, ['Crime Against Category'], ['Neighborhood', 'Offense Parent Group', 'days_count'], 'Counts', neighborhood))
-    offense_counts.append(process_groupby(neighborhood_data, ['Crime Against Category', 'Offense Parent Group'], ['Neighborhood', 'days_count'], 'Counts', neighborhood))
+    location_counts.append(process_groupby(neighborhood_data, ['Neighborhood'], ['Offense Parent Group', 'Offense Against Category', 'days_count'], 'Counts', neighborhood))
+    category_counts.append(process_groupby(neighborhood_data, ['Offense Against Category'], ['Neighborhood', 'Offense Parent Group', 'days_count'], 'Counts', neighborhood))
+    offense_counts.append(process_groupby(neighborhood_data, ['Offense Against Category', 'Offense Parent Group'], ['Neighborhood', 'days_count'], 'Counts', neighborhood))
     oldest_records.append(process_extra_records(neighborhood_data, 'Offense Start DateTime', True, neighborhood))
     newest_records.append(process_extra_records(neighborhood_data, 'Offense Start DateTime', False, neighborhood))
     longest_records.append(process_extra_records(neighborhood_data, 'days_count', False, neighborhood))

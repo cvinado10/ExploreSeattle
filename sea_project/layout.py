@@ -4,28 +4,42 @@ from components import CrimeTables, CrimeGraphs
 from components.Explore import heading, map_heading
 from components.MapComponent import map_component
 from components.SeattleMapStyle import seattle_map
-from components.Menus import display_menus, graph_menus
+from components.Menus import display_menus, graph_menus, topic_menus, explanation_dict
 from components.Links import linkedin, github, sources
 
 
 # --LOGIC FOR THE LAYOUT--
 
 def create_layout(app):
-    # Callback for toggling visibility of components
+    # Define the callback for both toggling visibility and updating the explanation
     @app.callback(
-        [
+    [
+        Output('offense-container', 'style'),  # Controls visibility of everything
         Output('conditional-graphs-options', 'style'),
         Output('conditional-graph', 'style'),  
-        Output('conditional-table', 'style'), 
-        ],
+        Output('conditional-table', 'style'),
+        Output('explanation-container', 'children')  # Keep explanation functionality
+    ],
+    [
+        Input('TopicDropdown', 'value'),
         Input('DisplayRadioitems', 'value')
-        )
+    ]
+    )
+    
+    def update_layout(selected_topic, display):
+        
+        # Explanation of the database
+        explanation = explanation_dict.get(selected_topic)
 
-    # Function for the toggling
-    def toggle_visibility(display):
+        # If TopicDropdown is not "offenses", hide offense-container but keep explanation
+        if selected_topic != 'offenses':
+            return {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, {'display': 'none'}, explanation
+
+        # Otherwise, show offense-container and handle table/graph visibility
         if display is None or display == 'tables':
-            return {'display': 'none'}, {'display': 'none'}, {'display': 'block'}  # Show tables, hide graphs & options
-        return {'display': 'block'}, {'display': 'block'}, {'display': 'none'}  # Show graphs & options, hide tables
+            return {'display': 'block'}, {'display': 'none'}, {'display': 'none'}, {'display': 'block'}, explanation
+        else:
+            return {'display': 'block'}, {'display': 'block'}, {'display': 'block'}, {'display': 'none'}, explanation
 
 
     # --STYLING FOR THE LAYOUT SECTIONS--
@@ -56,7 +70,7 @@ def create_layout(app):
 
 
     map_row = dbc.Row([
-        dbc.Col('', style={'width': '33%'}),
+        dbc.Col(topic_menus, style={'width': '33%', 'display': 'flex', 'justify-content': 'center', 'overflow': 'hidden'}, className='align-self-start'),
         dbc.Col(seattle_map, style={'width': '33%', 'display': 'flex', 'justify-content': 'center', 'overflow': 'hidden'}),
         dbc.Col(map_component, style={'width': '33%'}),
         dcc.Store(id='selected-hoods', data=[])
@@ -66,6 +80,7 @@ def create_layout(app):
     display_options = dbc.Row(display_menus,
         justify = 'center',
         align = 'center',
+        id='display-options'
         )
 
 
@@ -85,23 +100,28 @@ def create_layout(app):
         dbc.Col(CrimeGraphs.render(app), style={'width': '100%'}, id = 'graphs-container'),
         ], id='conditional-graph')
 
+    offense_container = html.Div([
+        display_options,
+        # Sub-container for tables & graphs, controlled by DisplayRadioitems
+        html.Div([
+            tables_results,
+            graphs_options,
+            graphs_results
+        ], id='tables-graphs-container')
+        ], id='offense-container')
 
     # --LAYOUT--
 
     layout = html.Div(
-        dbc.Container([
-            links_row,
-            explore_row,
-            map_row,
-            display_options,
-            tables_results,
-            graphs_options,
-            graphs_results,
-            ],
-        fluid = True,
-        ),
-        className= 'bg-body',
-        **{'data-bs-theme': 'dark'}
-        )
+    dbc.Container([
+        links_row,
+        explore_row,
+        map_row,
+        offense_container
+    ],
+    fluid=True),
+    className='bg-body',
+    **{'data-bs-theme': 'dark'}
+    )
 
     return layout
