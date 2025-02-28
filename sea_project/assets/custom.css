@@ -11937,35 +11937,45 @@ textarea.form-control-lg {
 .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
   font: var(--bs-font-sans-serif);
   color: var(--bs-table-striped-color, #fff);
+  border-radius: 0.25rem;
 }
 
 
 /* --DASH TABLE FORMATTING-- */
 
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner {
-  width: 100%;
-  overflow-x: auto;
-  display: block;
-  text-align: left;
-  font: var(--bs-font-sans-serif);
-  color: var(--bs-table-striped-color, #fff);
-  border-collapse: collapse;
-  border: 1px solid var(--bs-table-border-color, #45434c);
-  border-color: var(--bs-table-border-color, #45434c);
+  width: 100% !important;
+  overflow-x: auto !important;
+  display: block !important;
+  text-align: left !important;
+  font: var(--bs-font-sans-serif) !important;
+  color: var(--bs-table-striped-color, #fff) !important;
+  border-collapse: collapse !important;
+  border: 1px solid var(--bs-table-border-color, #45434c) !important;
+  border-color: var(--bs-table-border-color, #45434c) !important;
 }
 
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
-  background-color: var(--bs-table-bg, #17141f);
+  background-color: var(--bs-table-bg, #17141f) !important;
 }
 
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
-  background-color: var(--bs-table-striped-bg, #4c2a80);
-  font-weight: bold;
+  background-color: var(--bs-table-striped-bg, #4c2a80) !important;
+  font-weight: bold !important;
 }
 
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner tbody tr:hover td {
-  background-color: var(--bs-table-hover-bg, #282630);
-  color: var(--bs-table-hover-color, #fff);
+  background-color: var(--bs-table-hover-bg, #282630) !important;
+  color: var(--bs-table-hover-color, #fff) !important;
+}
+
+
+/* --MAP FORMATTING-- */
+
+.map-container {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--bs-border-color);
 }
 
 .map-attribution-container {
@@ -11992,4 +12002,67 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: 65px 20px;
+}
+
+
+/* --DASH DROPDOWN FORMATTING-- */
+
+/* Dash Dropdown Container, visible on rest mode*/
+.Select-control {
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  background-color: var(--bs-body-bg) !important;
+  border: var(--bs-border-width, 1px) solid var(--bs-border-color) !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: var(--bs-body-color) !important;
+  transition: var(--bs-border-color) 0.15s ease-in-out, 0 0 0 0.25rem rgba(89, 49, 150, 0.25) 0.15s ease-in-out !important;
+}
+
+/* Dropdown when focused */
+.Select-control:focus,
+.is-focused .Select-control {
+  border-color: #593196 !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.25rem rgba(89, 49, 150, 0.25) !important;
+}
+
+/* Dropdown menu, dropdown */
+.Select-menu {
+  background-color: var(--bs-body-bg) !important;
+  border-color: black !important;
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.25rem rgba(89, 49, 150, 0.25) !important;
+  border-radius: 0.25rem;
+}
+
+/* Placeholder and selected option text are centered vertically */
+.Select-placeholder, 
+.Select-value {
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding-left: 0.75rem !important;
+  font-size: 1rem !important;
+  color: var(--bs-secondary-color) !important;
+}
+
+/* Adjust selected option styling */
+.Select-value-label {
+  display: flex !important;
+  align-items: center !important;
+  color: var(--bs-body-color) !important;
+  font-weight: 400 !important;
+}
+
+/* Highlighted option for .select-input */
+.select-input .Select-option:hover,
+.select-input .Select-option.is-focused {
+  background-color: #593196 !important;
+  color: #fff !important;
+}
+
+.VirtualizedSelectFocusedOption {
+  background-color: rgba(89, 49, 150, 0.25);
 }

@@ -14,5 +14,7 @@ seattle_map = dcc.Graph(
         'width': '100%',
         'aspectRatio': '1 / 1',
         'max-width': '500px',
-        'margin': 'auto'}
+        'margin': 'auto',
+        },
+    className = 'map-container',
     )

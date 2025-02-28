@@ -21,8 +21,8 @@ from dash import Input, Output, callback
 def render (clickData, selectedData, selected_hoods):
     
     seattle = gpd.read_file('C:/Users/caro/Documents/DataScience/Notebooks/sea_project/static/Geo/Districts.geojson')
-    
-    
+   
+   
     #--DATA FILTERING THROUGH NEIGHBORHOOD SELECTION--
     
     if selected_hoods is None:
@@ -60,7 +60,6 @@ def render (clickData, selectedData, selected_hoods):
         color_continuous_scale = 'sunset', #Color scale for the map geometries
         color = 'Shape__Area', #Column to determine geometries' coloring
         template = 'plotly_dark', #Template style
-        # map_style = 'carto-voyager', #Map style
         center = {'lat': 47.615, 'lon': -122.34}, #Centering coordinates so the map starts at best location
         opacity = 0.4, #Opacity of the shapes
         zoom = 9.9, #Best starting zoon level for location display
