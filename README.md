@@ -1,10 +1,10 @@
 # ExploreSeattle!  
 A Data Analysis and Visualization Project  
-  
+  See it deployed in [pythonanywhere](https://cvinado.pythonanywhere.com/)
   
 Overview  
 This is my practice project in which you can explore   Seattle and its neighborhoods. It uses Dash, Plotly, and GeoPandas to create interactive maps, graphs, and tables that allow users to filter and analyze data by neighborhood.  
--It uses data from the Seattle Data Project  
+-Its starting point is data from the Seattle Data Project  
 -It currently only has data from offense reports, but the goal is to add more databases  
   
   
