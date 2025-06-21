@@ -243,13 +243,13 @@ def Count (seattle_crime, unit):
     # Flatten data
     unit_hood = []
     for u, neighborhoods in unit_crime_counts.items():
-        for neighborhood, crimes in neighborhoods.items():
+        for neighborhood, event in neighborhoods.items():
             row = {
                 unit: u,
                 'Neighborhood': neighborhood,
-                'Person': crimes.get('Person', 0),
-                'Property': crimes.get('Property', 0),
-                'Society': crimes.get('Society', 0)
+                'Person': event.get('Person', 0),
+                'Property': event.get('Property', 0),
+                'Society': event.get('Society', 0)
             }
             unit_hood.append(row)
     # Convert to DataFrame

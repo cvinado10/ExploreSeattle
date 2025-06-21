@@ -29,7 +29,7 @@ explanation_dict = {
 
 # Combined menus for the display options
 topic_menus = html.Div([
-        dbc.Row(html.H3('What topic do you want to explore?'),
+        dbc.Row(html.H4('What topic do you want to explore?'),
             justify = 'center',
             align = 'center',
             ),

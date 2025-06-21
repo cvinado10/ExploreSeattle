@@ -28,10 +28,19 @@ github = html.Div([
     ])
 
 # Sources link
-sources = html.Div([
+sdp_sources = html.Div([
     html.H6(['Data from the ',
         dcc.Link('Seattle Open Data Portal',
             href = 'https://data.seattle.gov/',
+            target = '_blank'
+            )
+        ])
+    ])
+
+wftda_sources = html.Div([
+    html.P(['Data for the model obtained from RCRD and ',
+        dcc.Link('WFTDA',
+            href = 'https://resources.wftda.org/competition/statsbook/',
             target = '_blank'
             )
         ])
