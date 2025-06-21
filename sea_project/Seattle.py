@@ -93,15 +93,15 @@ def render (clickData, selectedData, selected_hoods):
             dict(
                 x=1,
                 y=0,
-                xref="paper",
-                yref="paper",
+                xref='paper',
+                yref='paper',
                 text='© <a href="https://carto.com/about-carto/" target="_blank" rel="noopener">CARTO</a>, '
                     '© <a href="http://www.openstreetmap.org/about/" target="_blank">OpenStreetMap</a> contributors',
                 showarrow=False,
-                xanchor="right",
-                yanchor="bottom",
-                font=dict(size=10, color="white"),
-                align="right"
+                xanchor='right',
+                yanchor='bottom',
+                font=dict(size=10, color='white'),
+                align='right'
                 )
             ]
         )
