@@ -45,7 +45,7 @@ def render (clickData, selectedData, selected_hoods):
     # --SELECTION DISPLAY--
     
     if selected_hoods:
-        output_message = f'Current Selection: {', '.join(selected_hoods)}'
+        output_message = f"Current Selection: {', '.join(selected_hoods)}"
     else:
         output_message = 'Click on a neighborhood to filter data'
 
