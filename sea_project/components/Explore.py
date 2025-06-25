@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 # Header
 heading = html.Div([
     html.H2('Explore Seattle!'),
-    html.H3('A Data Visualization Application'),
+    html.H4(html.I('A Data Visualization Application')),
     ],
     className = 'mb-4',
     )

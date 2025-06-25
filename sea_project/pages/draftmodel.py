@@ -2,8 +2,6 @@ import dash
 from dash import html, Input, Output, dcc, callback
 import dash_bootstrap_components as dbc
 
-from components.Links import linkedin, github, wftda_sources
-
 
 # --LOGIC FOR THE LAYOUT--
 
